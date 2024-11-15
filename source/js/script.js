@@ -46,13 +46,26 @@ function listener(selector, event, callBack) {
   return selector.addEventListener(event, callBack);
 }
 
+function display(selector, type) {
+  return selector.style.display = type;
+}
+
+const gradeCode = selector('.set-time');
+listener(gradeCode, 'click', () => {
+  timerCount = 10;
+  timeReset = 10;
+  gunshots.currentTime = 0.1;
+  gunshots.play();
+});
+
 const doorOpen = selector('.open-door');
+const music = selector('.music');
 const screen = selector('main');
 const button = selector('button');
 let validRestart = false;
 let scoreCount = 0;
-let timerCount = 100;
-let test = { bool: false }; 
+let timerCount = 68;
+let timeReset = 68;
 listener(button, 'click', () => {
   if (validRestart) {
     //game restarting
@@ -88,23 +101,29 @@ function startGame() {
     timerCount--;
     timer.innerText = timerCount;
     zombie.style.display = 'inline';
+    music.play();
   } 
-  if (!validRestart || timerCount === 0) {
-    timerCount = 10;
+
+  if (!validRestart || timerCount === 0 || scoreCount === 200) {
+    timerCount = timeReset;
     timer.innerText = '--';
     score.innerText = '0';
     validRestart = false;
     willWait = true
     zombie.style.display = 'none';
+    music.pause();
     fadeOut('none', 'inline', 'Start');
     createScore();
   }
 }
 
+const scoreBoardContainer = selector('.score-board-container');
+const scoreBoardBox = selector('.score-board');
 const outside = selector('.outside');
 const inside = selector('.inside');
 const timer = selector('.timer');
 const title = selector('h1');
+
 function fadeOut(outDisplay, inDisplay, buttonStatus) {
   screen.style.opacity = '0';
   setTimeout(() => {
@@ -117,14 +136,19 @@ function fadeOut(outDisplay, inDisplay, buttonStatus) {
 }
 
 function changeScene(outDisplay, inDisplay, buttonStatus) {
-  outside.style.display = outDisplay;
-  timer.style.display = outDisplay;
-  title.style.display = inDisplay;
-  inside.style.display = inDisplay;
+  display(outside, outDisplay);
+  display(timer, outDisplay);
+  display(title, inDisplay);
+  display(inside, inDisplay);
+  display(scoreBoardContainer, inDisplay);
+  display(gradeCode, inDisplay);
   button.innerText = buttonStatus; 
   screen.style.opacity = '1';
+  scoreBoardBox.style
+  music.currentTime = 0;
 }
 
+/* Zombie killing code */
 const zombie = selector('.target-container');
 const input = selector('input');
 const targetInput = selector('.target-type');
@@ -157,6 +181,7 @@ function killZombie() {
    score.innerText = scoreCount;
    dieSound.currentTime = 0.1;
    dieSound.play();
+   input.value = '';
   }
 }
 
@@ -174,18 +199,29 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/* Creating new user score */
 const scoreBoard = [];
 function createScore() {
   let dateNow = findDate();
   let calcPercentage = (scoreCount / wordBank.length) * 100;
-  let percentage = `${calcPercentage}%`;
+  let percentage = `${Math.round(calcPercentage)}%`;
   const newScore = new Score(scoreCount, percentage, dateNow);
   scoreCount = 0;
   
   scoreBoard.push(newScore);
-  console.log(scoreBoard);
+  printScore(newScore);
 }
 
+function printScore(newScore) {
+  const newText = document.createElement('p');
+  let hits = newScore.score;
+  let percentage = newScore.percentage;
+  let date = newScore.date;
+  let score = `Hits:${hits} Percentage:${percentage} Date:${date}`;
+  newText.innerText = score;
+
+  scoreBoardBox.appendChild(newText);
+}
 function findDate() {
   const date = new Date();
   const year = String(date.getFullYear()).slice(-2);
@@ -195,6 +231,7 @@ function findDate() {
   
   return `${year}/${month}/${day}`;
 }
+
 class Score {
   #score;
   #percentage;
@@ -205,7 +242,12 @@ class Score {
     this.#date = date;
   }
 
+  set score(score) { this.#score = score; }
   get score() { return this.#score; }
+
+  set percentage(percentage) { this.#percentage = percentage; }
   get percentage() { return this.#percentage; }
+
+  set date(date) { this.#date = date; }
   get date() { return this.#date; }
 }

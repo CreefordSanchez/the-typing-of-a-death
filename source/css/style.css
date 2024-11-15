@@ -54,6 +54,42 @@ h1 {
   font-size: 50px;
 }
 
+.score-board-container {
+  padding-left: 10px;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+
+  h2 {
+    color: #fff;
+    margin-bottom: 5px;
+  }
+}
+
+.test-button {
+  display: flex;
+  justify-content: right;
+  
+  p {
+    color: #fff;
+    background-color: #c4a500;
+    font-weight: 800;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+.score-board { 
+  height: 150px;
+  overflow-y: auto;
+  width: 300px;
+  p {
+    word-spacing: 5px;
+    margin: 5px 0;
+    color: #c4a500;
+  }
+}
+
 .score-start-container {
   padding: 7px 7px 0;
   display: flex;
