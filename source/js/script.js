@@ -189,6 +189,7 @@ function newTarget() {
   targetText.innerText = wordBank[random(0, wordBank.length -1)];
   targetInput.innerText = targetText.innerText;
 }
+
 function randomPos() {
   let y = random(30, 40);
   let x = random(0, 80);
@@ -202,7 +203,7 @@ function random(min, max) {
 /* Creating new user score */
 const scoreBoard = [];
 function createScore() {
-  let dateNow = findDate();
+  let dateNow = getDate();
   let calcPercentage = (scoreCount / wordBank.length) * 100;
   let percentage = `${Math.round(calcPercentage)}%`;
   const newScore = new Score(scoreCount, percentage, dateNow);
@@ -222,12 +223,13 @@ function printScore(newScore) {
 
   scoreBoardBox.appendChild(newText);
 }
-function findDate() {
+
+function getDate() {
   const date = new Date();
-  const year = String(date.getFullYear()).slice(-2);
+  let year = String(date.getFullYear()).slice(-2);
   // add 0 if encounter single digits
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  let month = String(date.getMonth() + 1).padStart(2, '0');
+  let day = String(date.getDate()).padStart(2, '0');
   
   return `${year}/${month}/${day}`;
 }
