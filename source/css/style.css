@@ -6,17 +6,125 @@
   box-sizing: border-box;
 }
 
-
 html {
   font-family: "Inconsolata", monospace;
+}
+
+button {
+  cursor: pointer;
 }
 
 body {
   overflow: hidden;
   position: relative;
-  background-color: #000;
+  background-color: #000
 }
 
+/* Home Screen */
+.home {
+  background: url(../media/img/home.jpg) #000;
+  background-size: cover;
+  transition: 2s opacity ease;
+}
+
+.home-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.title {
+  width: 900px;
+  justify-self: center;
+  background-color: #0000001e;
+  border-radius: 10px;
+}
+
+.home-buttons {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+
+  button {
+    background-color: #00000000;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    font-family: "Merriweather", serif;
+    transition: 0.5s ease;
+  }
+
+  button:hover {
+    color: #c4a500;
+  }
+}
+
+/* Gameplay */
+.gameplay {
+  display: none;
+  background-image: url(../media/img/battlefield.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  opacity: 0;
+  transition: 1s opacity ease;
+}
+
+.gameplay-content {
+  height: 100vh;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  p {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    font-weight: 500;
+    color: #c4a500;
+    cursor: default;
+  }
+
+  button {
+    background-color: #00000000;
+    border: none;
+    color: #fff;
+    font-family: "Merriweather", serif;
+    font-size: 27px;
+    transition: 0.5s ease;
+  }
+
+  button:hover {
+    color: #c4a500;
+  } 
+}
+
+.time-count-container {
+  display: flex;
+  justify-content: center;
+  font-family: "Merriweather", serif;
+  font-size: 80px;
+  color: #fff;
+
+  p {
+    cursor: default;
+  }
+}
+/*
+.home {
+  display: none;
+}
+
+.gameplay {
+  display: block;
+  opacity: 1;
+  
+}*/
+
+/*
 .background {
   position: absolute;
   top: 0;
@@ -31,12 +139,13 @@ body {
     width: 100%;
     z-index: 1;
   }
-}
+}*/
+
 
 .outside {
   display: none;
 }
-
+/*
 main {
   height: 100vh;
   display: grid;
@@ -45,7 +154,7 @@ main {
   position: relative;
   overflow: hidden;
   transition: opacity 1s;
-}
+}*/
 
 h1 {
   font-family: "Merriweather", serif;
@@ -57,7 +166,7 @@ h1 {
 .score-board-container {
   padding-left: 10px;
   height: 180px;
-  display: flex;
+  display: none;
   justify-content: space-between;
 
   h2 {
@@ -69,7 +178,7 @@ h1 {
 .test-button {
   display: flex;
   justify-content: right;
-  
+  padding-right: 5px;
   p {
     color: #fff;
     background-color: #c4a500;
@@ -79,6 +188,7 @@ h1 {
     cursor: pointer;
   }
 }
+
 .score-board { 
   height: 150px;
   overflow-y: auto;
@@ -92,7 +202,7 @@ h1 {
 
 .score-start-container {
   padding: 7px 7px 0;
-  display: flex;
+  display: none;
   justify-content: space-between;
   
   p {
@@ -101,7 +211,7 @@ h1 {
     font-size: 45px;
   }
 }
-
+/*
 button {
   border: none;
   cursor: pointer;
@@ -109,7 +219,7 @@ button {
   font-weight: 800;
   color: #fff;
   background-color: rgba(0, 0, 0, 0);
-}
+}*/
 
 .timer-container {
   display: flex;

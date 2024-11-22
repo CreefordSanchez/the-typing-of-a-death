@@ -15,45 +15,60 @@
     <audio src="./source/media/audio/door-open.wav" class="open-door"></audio>
     <audio src="./source/media/audio/gunshots.wav" class="gunshots"></audio>
     <audio src="./source/media/audio/man-scream.wav" class="kill-sound"></audio>
-    <main>
-      <div class="background">
-        <img class="inside" src="./source/media/img/home.jpg" alt="inside">
-        <img class="outside" src="./source/media/img/battlefield.jpg" alt="outside">
-      </div>
-      
-      <div class="score-start-container">
-        <p>Score: <span class="score">0</span></p>
-        <button>Start</button>
-      </div>
-      
-      <div class="timer-container">
-        <p class="timer">--</p>
-      </div>
 
-      <h1>The rise of A dead</h1>
-      <div class="test-button">
-        <p class="set-time">time to 10s</p>
-      </div>
-
-      <div class="score-board-container">
-        <h2>Score Board</h2>
-        <div class="score-board"></div>
-      </div>
-      
-      <div class="target-container">
-        <div class="target">
-          <img src="./source/media/img/granny-zombie.png" alt="Zombie">
-          <div class="type-box-container">
-            <div class="type-box">
-              <p class="sentence"></p>
-              <p class="target-type"></p>
-            <form>
-              <input type="text">
-            </form>
-            </div>
+    <div class="home">
+      <div class="home-content">
+        <div class="title-buttons">
+          <img class="title" src="./source/media/img/title.png" alt="Typing of A Dead">
+          <div class="home-buttons">
+            <button class="start">Start</button>
+            <button class="leader-board">Leader Board</button>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+
+    <div class="gameplay">
+      <div class="gameplay-content">
+        <header>
+          <div class="score-count">
+            <p>Score: <span>0</span></p>
+          </div>
+          <button class="restart">Finish</button>
+        </header>
+        <div class="time-count-container">
+          <p class="time"></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="score-start-container">
+      <p>Score: <span class="score">0</span></p>
+      <button>Start</button>
+    </div>
+    
+    <div class="timer-container">
+      <p class="timer">--</p>
+    </div>
+
+    <div class="score-board-container">
+      <h2>Score Board</h2>
+      <div class="score-board"></div>
+    </div>
+    
+    <div class="target-container">
+      <div class="target">
+        <img src="./source/media/img/granny-zombie.png" alt="Zombie">
+        <div class="type-box-container">
+          <div class="type-box">
+            <p class="sentence"></p>
+            <p class="target-type"></p>
+          <form>
+            <input type="text">
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

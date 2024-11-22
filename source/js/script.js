@@ -50,6 +50,69 @@ function display(selector, type) {
   return selector.style.display = type;
 }
 
+function style(selector, styleType, type) {
+  return selector.style[styleType] = type
+}
+
+
+const startBtn = selector('.start');
+const endBtn = selector('.restart');
+const gameScreen = selector('.gameplay');
+const homeScreen = selector('.home');
+const timeCount = selector('.time');
+let startGame = false;
+let timeLimit = 100;
+
+listener(startBtn, 'click', () => {
+ swicthScreen(true);
+
+ setTimeout(() => {
+  startGame = true;
+ },3000);
+});
+
+listener(endBtn, 'click', () => {
+  swicthScreen(false);
+  startGame = false;
+});
+
+setInterval(() => {
+  if (startGame) {
+    timeLimit--;
+    timeCount.innerText = timeLimit;
+    console.log(timeLimit);
+  }
+}, 1000);
+function swicthScreen(inHome) {
+  if (inHome) {
+    removeScreen(homeScreen);
+    setTimeout(() => {
+      appearScreen(gameScreen);
+    },700);
+  } else {
+    removeScreen(gameScreen);
+    setTimeout(() => {
+      appearScreen(homeScreen);
+    },700);
+  }
+}
+
+function appearScreen(screen) {
+  style(screen, 'display', 'block');
+
+  setTimeout(() => {
+    style(screen, 'opacity', '1');
+  }, 2000);
+}
+
+function removeScreen(screen) {
+  style(screen, 'opacity', '0');
+  setTimeout(() => {
+    style(screen, 'display', 'none');
+  },2000);
+}
+
+/*
 const gradeCode = selector('.set-time');
 listener(gradeCode, 'click', () => {
   timerCount = 10;
@@ -144,11 +207,11 @@ function changeScene(outDisplay, inDisplay, buttonStatus) {
   display(gradeCode, inDisplay);
   button.innerText = buttonStatus; 
   screen.style.opacity = '1';
-  scoreBoardBox.style
+  //scoreBoardBox.style
   music.currentTime = 0;
 }
 
-/* Zombie killing code */
+/* Zombie killing code 
 const zombie = selector('.target-container');
 const input = selector('input');
 const targetInput = selector('.target-type');
@@ -200,7 +263,7 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/* Creating new user score */
+//Creating new user score 
 const scoreBoard = [];
 function createScore() {
   let dateNow = getDate();
@@ -252,4 +315,4 @@ class Score {
 
   set date(date) { this.#date = date; }
   get date() { return this.#date; }
-}
+}*/
