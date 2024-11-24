@@ -11,11 +11,6 @@
     <script src="./source/js/script.js" defer></script>
   </head>
   <body>
-    <audio src="./source/media/audio/music.mp3" class="music"></audio>
-    <audio src="./source/media/audio/door-open.wav" class="open-door"></audio>
-    <audio src="./source/media/audio/gunshots.wav" class="gunshots"></audio>
-    <audio src="./source/media/audio/man-scream.wav" class="kill-sound"></audio>
-
     <div class="home">
       <div class="home-content">
         <div class="title-buttons">
@@ -37,11 +32,17 @@
           <button class="restart">Finish</button>
         </header>
         <div class="time-count-container">
-          <p class="time"></p>
+          <p class="time">---</p>
         </div>
       </div>
+      <div class="zombie">
+        <div class="typing-box">
+          <p class="word">word</p>
+          <p class="word-input">word</p>
+        </div>
+      </div>      
     </div>
-    
+
     <div class="score-start-container">
       <p>Score: <span class="score">0</span></p>
       <button>Start</button>
@@ -56,19 +57,5 @@
       <div class="score-board"></div>
     </div>
     
-    <div class="target-container">
-      <div class="target">
-        <img src="./source/media/img/granny-zombie.png" alt="Zombie">
-        <div class="type-box-container">
-          <div class="type-box">
-            <p class="sentence"></p>
-            <p class="target-type"></p>
-          <form>
-            <input type="text">
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
   </body>
 </html>

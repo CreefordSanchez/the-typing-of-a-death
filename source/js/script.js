@@ -60,20 +60,24 @@ const endBtn = selector('.restart');
 const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
 const timeCount = selector('.time');
+const currentWord = selector('.word');
+const wordInput = selector('.word-input');
+const zombie = selector('.zombie');
+const zombieImg = ['mummy-zombie', 'lady-zombie', 'granny-zombie'];
 let startGame = false;
 let timeLimit = 100;
 
 listener(startBtn, 'click', () => {
- swicthScreen(true);
-
+ newWord();
+ switchScreen(true);
  setTimeout(() => {
   startGame = true;
  },3000);
 });
 
 listener(endBtn, 'click', () => {
-  swicthScreen(false);
-  startGame = false;
+  switchScreen(false);
+  reset();
 });
 
 setInterval(() => {
@@ -82,8 +86,31 @@ setInterval(() => {
     timeCount.innerText = timeLimit;
     console.log(timeLimit);
   }
+
+  if (timeLimit === 0) {
+    switchScreen(false);
+    reset();
+  }
 }, 1000);
-function swicthScreen(inHome) {
+
+newWord();
+
+
+function newWord() {
+  let getImg = random(0, zombieImg.length-1);
+  let getWord = random(0, wordBank.length-1);
+  currentWord.innerText = wordBank[getWord];
+  wordInput.innerText = wordBank[getWord];
+  zombie.classList.add(zombieImg[getImg]);
+}
+
+function reset() {
+  startGame = false;
+  timeLimit = 100;
+  timeCount.innerText = '---';
+}
+
+function switchScreen(inHome) {
   if (inHome) {
     removeScreen(homeScreen);
     setTimeout(() => {
@@ -112,7 +139,16 @@ function removeScreen(screen) {
   },2000);
 }
 
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 /*
+//
+removeScreen(homeScreen);
+appearScreen(gameScreen);
+
+  startGame = true;
+
 const gradeCode = selector('.set-time');
 listener(gradeCode, 'click', () => {
   timerCount = 10;
