@@ -55,26 +55,37 @@ function style(selector, styleType, type) {
 }
 
 const body = selector('body');
+
+//buttons
 const startBtn = selector('.start');
 const endBtn = selector('.restart');
 const enterBtn = selector('.enter');
+
+//screens
 const enterScreen = selector('.press-enter-screen');
 const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
+
+//Variables essential for killing zombies
 const timeCount = selector('.time');
 const zombie = selector('.zombie');
 const zombieImg = ['mummy-zombie', 'granny-zombie', 'lady-zombie'];
 const currentWord = selector('.word');
 const wordInput = selector('.word-input');
 const userInput = selector('input');
+const scoreBtn = selector('.leader-board');
+const scoreCount = selector('span');
+
+//music 
 const gameMusic = new Audio('./source/media/audio/battle-music.mp3');
 const gunshots = new Audio('./source/media/audio/gunshots.wav');
 const deadSound = new Audio('./source/media/audio/death-sounds.wav');
 const homeMusic = new Audio('./source/media/audio/home-music.mp3');
-const scoreBtn = selector('.leader-board');
+
 let startGame = false;
 let timeLimit = 100;
 let prevZombie = 0;
+let score = 0;
 
 gunshots.volume = 0.2;
 gameMusic.volume = 0.2;
@@ -126,6 +137,7 @@ setInterval(() => {
   }
 }, 1000);
 
+//Zombie killing functions
 function randomPos() {
   let screenHeight = window.innerHeight;
   let screenWidth = window.innerWidth;
@@ -161,6 +173,10 @@ function newWord() {
   prevZombie = getImg;
 }
 
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+//Switching screen functions
 function reset() {
   startGame = false;
   timeLimit = 100;
@@ -198,10 +214,6 @@ function removeScreen(screen) {
   setTimeout(() => {
     style(screen, 'display', 'none');
   },2000);
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /*
