@@ -61,15 +61,20 @@ const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
 const timeCount = selector('.time');
 const zombie = selector('.zombie');
-const zombieImg = ['mummy-zombie', 'lady-zombie', 'granny-zombie'];
+const zombieImg = ['mummy-zombie', 'granny-zombie', 'lady-zombie'];
 const currentWord = selector('.word');
 const wordInput = selector('.word-input');
 const userInput = selector('input');
 const gameMusic = new Audio('./source/media/audio/music.mp3');
-
+const scoreBtn = selector('.leader-board');
 let startGame = false;
 let timeLimit = 100;
+let prevZombie = 0;
 
+listener(window, 'load', () => {
+  newWord();
+  randomPos();
+});
 listener(body, 'click', () => {
   userInput.focus();
 });
@@ -84,8 +89,10 @@ listener(startBtn, 'click', () => {
 });
 
 listener(endBtn, 'click', () => {
-  switchScreen(false);
-  reset();
+  newWord();
+  randomPos();
+ /* switchScreen(false);
+  reset();*/
 });
 
 listener(userInput, 'input', () => {
@@ -99,7 +106,6 @@ setInterval(() => {
     timeLimit--;
     timeCount.innerText = timeLimit;
     userInput.focus();
-    console.log(timeLimit);
   }
 
   if (timeLimit === 0) {
@@ -107,6 +113,15 @@ setInterval(() => {
     reset();
   }
 }, 1000);
+
+function randomPos() {
+  let screenHeight = window.innerHeight;
+  let screenWidth = window.innerWidth;
+  let y = random(0, screenHeight-500);
+  let x = random(0, screenWidth-500);
+  if (y <= 70) y = 80;
+  zombie.style.inset = `${y}px auto auto ${x}px`;
+}
 
 function compare(char) {
   let targetText = wordInput.innerText;
@@ -122,7 +137,10 @@ function newWord() {
   let getWord = random(0, wordBank.length-1);
   currentWord.innerText = wordBank[getWord];
   wordInput.innerText = wordBank[getWord];
+  zombie.classList.remove(zombieImg[prevZombie]);
   zombie.classList.add(zombieImg[getImg]);
+  console.log(zombieImg[getImg]);
+  prevZombie = getImg;
 }
 
 function reset() {
