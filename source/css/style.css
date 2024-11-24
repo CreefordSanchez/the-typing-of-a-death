@@ -20,8 +20,35 @@ body {
   background-color: #000
 }
 
+.press-enter-screen {
+  background-color: #000;
+  color: #fff;
+  font-family: "Merriweather", serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
+
+.enter-screen-button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #c4a500;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+  }
+}
+
 /* Home Screen */
 .home {
+  display: none;
   background: url(../media/img/home.jpg) #000;
   background-size: cover;
   transition: 2s opacity ease;
@@ -63,7 +90,7 @@ body {
 /* Gameplay */
 .gameplay {
   display: none;
-  background-image: url(../media/img/battlefield.jpg);
+  background-image: url(../media/img/tunnel.jpg);
   background-size: cover;
   background-position: center bottom;
   opacity: 0;
@@ -102,6 +129,10 @@ header {
 }
 
 .time-count-container {
+  position: absolute;
+  top: 80px;
+  z-index: 2;
+  width: 100%;
   display: flex;
   justify-content: center;
   font-family: "Merriweather", serif;
@@ -130,6 +161,7 @@ header {
   color: #fff;
   padding: 15px 35px;
   font-size: 20px;
+  text-align: center;
 }
 
 .word-input {

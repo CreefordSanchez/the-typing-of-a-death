@@ -57,6 +57,8 @@ function style(selector, styleType, type) {
 const body = selector('body');
 const startBtn = selector('.start');
 const endBtn = selector('.restart');
+const enterBtn = selector('.enter');
+const enterScreen = selector('.press-enter-screen');
 const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
 const timeCount = selector('.time');
@@ -65,34 +67,44 @@ const zombieImg = ['mummy-zombie', 'granny-zombie', 'lady-zombie'];
 const currentWord = selector('.word');
 const wordInput = selector('.word-input');
 const userInput = selector('input');
-const gameMusic = new Audio('./source/media/audio/music.mp3');
+const gameMusic = new Audio('./source/media/audio/battle-music.mp3');
+const gunshots = new Audio('./source/media/audio/gunshots.wav');
+const deadSound = new Audio('./source/media/audio/death-sounds.wav');
+const homeMusic = new Audio('./source/media/audio/home-music.mp3');
 const scoreBtn = selector('.leader-board');
 let startGame = false;
 let timeLimit = 100;
 let prevZombie = 0;
 
-listener(window, 'load', () => {
-  newWord();
-  randomPos();
+gunshots.volume = 0.2;
+gameMusic.volume = 0.2;
+homeMusic.volume = 0.1;
+
+listener(enterBtn, 'click', () => {
+  homeMusic.play();
+  homeScreen.style.display = 'block';
+  enterScreen.style.display = 'none';
 });
+
 listener(body, 'click', () => {
   userInput.focus();
 });
 
 listener(startBtn, 'click', () => {
- newWord();
- switchScreen(true);
- setTimeout(() => {
-  gameMusic.play();
-  startGame = true;
- },3000);
+  randomPos();
+  newWord();
+  switchScreen(true);
+  homeMusic.pause();
+
+  setTimeout(() => {
+    gameMusic.play();
+    startGame = true;
+  },3000);
 });
 
 listener(endBtn, 'click', () => {
-  newWord();
-  randomPos();
- /* switchScreen(false);
-  reset();*/
+  switchScreen(false);
+  reset();
 });
 
 listener(userInput, 'input', () => {
@@ -126,9 +138,16 @@ function randomPos() {
 function compare(char) {
   let targetText = wordInput.innerText;
   if (targetText[0] === char.toLowerCase()) {
-    //gunshots.currentTime = 0.1;
-    //gunshots.play();
+    gunshots.currentTime = 0.1;
+    gunshots.play();
     wordInput.innerText = targetText.slice(1);
+  }
+
+  if (wordInput.innerText === '') {
+    randomPos();
+    newWord();
+    deadSound.currentTime = 0;
+    deadSound.play();
   }
 }
 
@@ -139,7 +158,6 @@ function newWord() {
   wordInput.innerText = wordBank[getWord];
   zombie.classList.remove(zombieImg[prevZombie]);
   zombie.classList.add(zombieImg[getImg]);
-  console.log(zombieImg[getImg]);
   prevZombie = getImg;
 }
 
@@ -149,6 +167,7 @@ function reset() {
   timeCount.innerText = '---';
   gameMusic.pause();
   gameMusic.currentTime = 0;
+  homeMusic.currentTime = 0;
 }
 
 function switchScreen(inHome) {
@@ -160,7 +179,8 @@ function switchScreen(inHome) {
   } else {
     removeScreen(gameScreen);
     setTimeout(() => {
-      appearScreen(homeScreen);
+      homeMusic.play();
+      appearScreen(homeScreen);      
     },700);
   }
 }
