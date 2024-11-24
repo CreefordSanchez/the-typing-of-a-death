@@ -54,23 +54,31 @@ function style(selector, styleType, type) {
   return selector.style[styleType] = type
 }
 
-
+const body = selector('body');
 const startBtn = selector('.start');
 const endBtn = selector('.restart');
 const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
 const timeCount = selector('.time');
-const currentWord = selector('.word');
-const wordInput = selector('.word-input');
 const zombie = selector('.zombie');
 const zombieImg = ['mummy-zombie', 'lady-zombie', 'granny-zombie'];
+const currentWord = selector('.word');
+const wordInput = selector('.word-input');
+const userInput = selector('input');
+const gameMusic = new Audio('./source/media/audio/music.mp3');
+
 let startGame = false;
 let timeLimit = 100;
+
+listener(body, 'click', () => {
+  userInput.focus();
+});
 
 listener(startBtn, 'click', () => {
  newWord();
  switchScreen(true);
  setTimeout(() => {
+  gameMusic.play();
   startGame = true;
  },3000);
 });
@@ -80,10 +88,17 @@ listener(endBtn, 'click', () => {
   reset();
 });
 
+listener(userInput, 'input', () => {
+  let getInput = userInput.value;
+  let char = getInput.slice(-1);
+  compare(char);
+});
+
 setInterval(() => {
   if (startGame) {
     timeLimit--;
     timeCount.innerText = timeLimit;
+    userInput.focus();
     console.log(timeLimit);
   }
 
@@ -93,8 +108,14 @@ setInterval(() => {
   }
 }, 1000);
 
-newWord();
-
+function compare(char) {
+  let targetText = wordInput.innerText;
+  if (targetText[0] === char.toLowerCase()) {
+    //gunshots.currentTime = 0.1;
+    //gunshots.play();
+    wordInput.innerText = targetText.slice(1);
+  }
+}
 
 function newWord() {
   let getImg = random(0, zombieImg.length-1);
@@ -108,6 +129,8 @@ function reset() {
   startGame = false;
   timeLimit = 100;
   timeCount.innerText = '---';
+  gameMusic.pause();
+  gameMusic.currentTime = 0;
 }
 
 function switchScreen(inHome) {
@@ -142,6 +165,7 @@ function removeScreen(screen) {
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 /*
 //
 removeScreen(homeScreen);

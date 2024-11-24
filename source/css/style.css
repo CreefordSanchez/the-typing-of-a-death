@@ -136,6 +136,11 @@ header {
   color: #c4a500;
 }
 
+form {
+  position: absolute;
+  top: -100vh;
+}
+
 .lady-zombie {
   background-image: url(../media/img/lady.png);
   background-position: 10% 10%;
