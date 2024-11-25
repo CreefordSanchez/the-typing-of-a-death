@@ -60,11 +60,15 @@ const body = selector('body');
 const startBtn = selector('.start');
 const endBtn = selector('.restart');
 const enterBtn = selector('.enter');
+const scoreBtn = selector('.leader-board');
+const closeScoreBtn = selector('.return-home-btn');
 
 //screens
 const enterScreen = selector('.press-enter-screen');
 const gameScreen = selector('.gameplay');
 const homeScreen = selector('.home');
+const homeContent = selector('.home-content');
+const boardContent = selector('.score-board-content');
 
 //Variables essential for killing zombies
 const timeCount = selector('.time');
@@ -73,7 +77,6 @@ const zombieImg = ['mummy-zombie', 'granny-zombie', 'lady-zombie'];
 const currentWord = selector('.word');
 const wordInput = selector('.word-input');
 const userInput = selector('input');
-const scoreBtn = selector('.leader-board');
 const scoreCount = selector('span');
 
 //music 
@@ -88,8 +91,18 @@ let prevZombie = 0;
 let score = 0;
 
 gunshots.volume = 0.2;
-gameMusic.volume = 0.2;
+gameMusic.volume = 0.5;
 homeMusic.volume = 0.1;
+deadSound.volume = 0.5;
+listener(scoreBtn, 'click', () => {
+  homeContent.style.display = 'none';
+  boardContent.style.display = 'flex';
+});
+
+listener(closeScoreBtn, 'click', () => {
+   homeContent.style.display = 'flex';
+  boardContent.style.display = 'none';
+});
 
 listener(enterBtn, 'click', () => {
   homeMusic.play();
@@ -160,6 +173,8 @@ function compare(char) {
     newWord();
     deadSound.currentTime = 0;
     deadSound.play();
+    score++;
+    scoreCount.innerText = score;
   }
 }
 
@@ -176,6 +191,15 @@ function newWord() {
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+//Printing screen functions 
+function printScore() {
+//Hits //time //date
+}
+
+function getDate() {
+
+}
 //Switching screen functions
 function reset() {
   startGame = false;
@@ -184,6 +208,7 @@ function reset() {
   gameMusic.pause();
   gameMusic.currentTime = 0;
   homeMusic.currentTime = 0;
+  score = 0;
 }
 
 function switchScreen(inHome) {

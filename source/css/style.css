@@ -49,6 +49,7 @@ body {
 /* Home Screen */
 .home {
   display: none;
+  display: block;
   background: url(../media/img/home.jpg) #000;
   background-size: cover;
   transition: 2s opacity ease;
@@ -85,6 +86,89 @@ body {
   button:hover {
     color: #c4a500;
   }
+}
+
+/*Score board*/
+.score-board-content {
+  height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.sb-title-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.sb-title {
+  width: 500px;
+}
+
+.sb-button-container {
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  justify-content: right;
+  padding: 10px 10px 0 0;
+}
+
+.return-home-btn {
+  border: none;
+  background-color: #00000000;
+  color: #fff;
+  font-size: 20px;
+  transition: 0.5s ease;
+}
+
+.return-home-btn:hover {
+  color: #c4a500;
+}
+
+.score-board {
+  background-color: #00000081;
+  width: 900px;
+  height: 470px;
+  text-align: center;
+  line-height: 75px;
+  position: relative;
+  padding-top: 33px;
+}
+
+.column-titles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  h2 {
+    color: #fff;
+    font-size: 40px;
+  }
+}
+
+.score-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: auto;
+  height: 330px;
+  p {
+    color: #c4a500;
+    font-size: 30px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #00000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff; 
+  border-radius: 10px; 
 }
 
 /* Gameplay */
