@@ -55,6 +55,7 @@ function style(selector, styleType, type) {
 }
 
 const body = selector('body');
+const scoreList = selector('.score-list');
 
 //buttons
 const startBtn = selector('.start');
@@ -89,11 +90,13 @@ let startGame = false;
 let timeLimit = 100;
 let prevZombie = 0;
 let score = 0;
+let countTime = 0;
 
 gunshots.volume = 0.2;
 gameMusic.volume = 0.5;
 homeMusic.volume = 0.1;
 deadSound.volume = 0.5;
+
 listener(scoreBtn, 'click', () => {
   homeContent.style.display = 'none';
   boardContent.style.display = 'flex';
@@ -127,6 +130,7 @@ listener(startBtn, 'click', () => {
 });
 
 listener(endBtn, 'click', () => {
+  printScore();
   switchScreen(false);
   reset();
 });
@@ -147,6 +151,15 @@ setInterval(() => {
   if (timeLimit === 0) {
     switchScreen(false);
     reset();
+    printScore();
+  }
+
+  //looping home music
+  countTime++; {
+    if (countTime === 140) {
+      homeMusic.currentTime = 0;
+      countTime = 0;
+    }
   }
 }, 1000);
 
@@ -194,12 +207,45 @@ function random(min, max) {
 
 //Printing screen functions 
 function printScore() {
-//Hits //time //date
+  if (score > 0) {
+    const hits = document.createElement('p');
+    const time = document.createElement('p');
+    const date = document.createElement('p');
+    const box = document.createElement('div');
+
+    hits.innerText = score;
+    time.innerText = getTime();
+    date.innerText = getDate();
+
+    box.appendChild(hits);
+    box.appendChild(time);
+    box.appendChild(date);
+
+    scoreList.prepend(box);
+  }
 }
 
 function getDate() {
+  const option = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }
 
+  return new Date().toLocaleDateString('en-ca', option);
 }
+
+function getTime() {
+  const date = new Date();
+  let hour = date.getHours();
+  let min = String(date.getMinutes()).padStart(2, '0');
+  let amPm = hour >= 12 ? 'PM' : 'AM';
+
+  hour %= 12;
+  if (hour === 0) hour = 12;
+  return `${hour}:${min} ${amPm}`;
+}
+
 //Switching screen functions
 function reset() {
   startGame = false;

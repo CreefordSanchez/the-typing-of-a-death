@@ -148,10 +148,14 @@ body {
 }
 
 .score-list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
   overflow: auto;
   height: 330px;
+
+  div {    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   p {
     color: #c4a500;
     font-size: 30px;
