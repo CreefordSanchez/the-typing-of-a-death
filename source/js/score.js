@@ -20,12 +20,12 @@ function setNewItem() {
   if (score > 0) {    
     const id = Date.now();
     let newScore = `${score}|${getTime()}|${getDate()}`;
-    sessionStorage.setItem(`${id}`,`${newScore}`);
+    localStorage.setItem(`${id}`,`${newScore}`);
   }
 }
 
 function validate() {
-  if (sessionStorage.length === 0) {
+  if (localStorage.length === 0) {
     scoreList.classList.add('center-score-msgg');
     scoreList.innerHTML = '<p>No Scores Yet</p>';
     return false;
@@ -37,8 +37,9 @@ function validate() {
 }
 
 function scoreStorage() {
-  const scoreList = Object.values(sessionStorage);
-  
+  const scoreList = Object.values(localStorage);  
+  scoreList.sort((a, b) => b[0] - a[0]);
+
   scoreList.forEach(value => {
     const placeHolder = value.split('|');
     createScoreElements(placeHolder[0], placeHolder[1], placeHolder[2]);
@@ -59,7 +60,7 @@ function createScoreElements(hitValue, timeValue, dateValue) {
     box.appendChild(time);
     box.appendChild(date);
 
-    scoreList.prepend(box);
+    scoreList.appendChild(box);
 }
 function getDate() {
   const option = {
