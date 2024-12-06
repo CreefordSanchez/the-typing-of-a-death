@@ -6,7 +6,11 @@
   "scripts": {
     "start": "lite-server"
   },
-  "keywords": ["HTML", "JavaScript", "CSS"],
+  "keywords": [
+    "HTML",
+    "JavaScript",
+    "CSS"
+  ],
   "author": "Creeford Sancehz",
   "license": "ISC",
   "dependencies": {
