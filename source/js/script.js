@@ -2,6 +2,7 @@
 
 import { wordBank } from "./data/word-bank.js";
 import { selector, selectorAll, style, listener } from "./data/utility.js";
+import { printScore } from "./score.js";
 
 const body = selector('body');
 const scoreList = selector('.score-list');
@@ -38,7 +39,7 @@ const homeMusic = new Audio('./source/media/audio/home-music.mp3');
 let startGame = false;
 let timeLimit = 100;
 let prevZombie = 0;
-let score = 0;
+export let score = 0;
 let countTime = 0;
 
 gunshots.volume = 0.2;
@@ -52,7 +53,7 @@ listener(scoreBtn, 'click', () => {
 });
 
 listener(closeScoreBtn, 'click', () => {
-   homeContent.style.display = 'flex';
+  homeContent.style.display = 'flex';
   boardContent.style.display = 'none';
 });
 
@@ -152,47 +153,6 @@ function newWord() {
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-//Printing screen functions 
-function printScore() {
-  if (score > 0) {
-    const hits = document.createElement('p');
-    const time = document.createElement('p');
-    const date = document.createElement('p');
-    const box = document.createElement('div');
-
-    hits.innerText = score;
-    time.innerText = getTime();
-    date.innerText = getDate();
-
-    box.appendChild(hits);
-    box.appendChild(time);
-    box.appendChild(date);
-
-    scoreList.prepend(box);
-  }
-}
-
-function getDate() {
-  const option = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }
-
-  return new Date().toLocaleDateString('en-ca', option);
-}
-
-function getTime() {
-  const date = new Date();
-  let hour = date.getHours();
-  let min = String(date.getMinutes()).padStart(2, '0');
-  let amPm = hour >= 12 ? 'PM' : 'AM';
-
-  hour %= 12;
-  if (hour === 0) hour = 12;
-  return `${hour}:${min} ${amPm}`;
 }
 
 //Switching screen functions
