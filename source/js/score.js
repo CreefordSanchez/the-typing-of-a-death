@@ -7,15 +7,13 @@ import { score } from "./script.js";
 const scoreList = selector('.score-list');
 
 listener(window, 'load', () => {
-  if (sessionStorage.length === 0) {
-
-  } else scoreStorage();
+  validate();
 });
 
 export function printScore() {
   scoreList.innerHTML = '';
   setNewItem();
-  scoreStorage();
+  validate();
 }
 
 function setNewItem() {
@@ -25,6 +23,19 @@ function setNewItem() {
     sessionStorage.setItem(`${id}`,`${newScore}`);
   }
 }
+
+function validate() {
+  if (sessionStorage.length === 0) {
+    scoreList.classList.add('center-score-msgg');
+    scoreList.innerHTML = '<p>No Scores Yet</p>';
+    return false;
+  } 
+
+  scoreList.classList.remove('center-score-msgg');
+  scoreStorage();    
+  return true;
+}
+
 function scoreStorage() {
   const scoreList = Object.values(sessionStorage);
   

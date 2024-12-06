@@ -36,7 +36,7 @@ const deadSound = new Audio('./source/media/audio/death-sounds.wav');
 const homeMusic = new Audio('./source/media/audio/home-music.mp3');
 
 let startGame = false;
-let timeLimit = 100;
+let timeLimit = 15;
 let prevZombie = 0;
 export let score = 0;
 let countTime = 0;
@@ -97,10 +97,10 @@ setInterval(() => {
     userInput.focus();
   }
 
-  if (timeLimit === 0) {
-    switchScreen(false);
-    reset();
+  if (timeLimit === 0) {       
     printScore();
+    switchScreen(false); 
+    reset();
   }
 
   //looping home music
@@ -157,7 +157,7 @@ function random(min, max) {
 //Switching screen functions
 function reset() {
   startGame = false;
-  timeLimit = 100;
+  timeLimit = 15;
   timeCount.innerText = '---';
   gameMusic.pause();
   gameMusic.currentTime = 0;
