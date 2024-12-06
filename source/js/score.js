@@ -6,14 +6,35 @@ import { score } from "./script.js";
 
 const scoreList = selector('.score-list');
 
-//Printing screen functions 
+listener(window, 'load', () => {
+  if (sessionStorage.length === 0) {
+
+  } else scoreStorage();
+});
+
 export function printScore() {
-  let newScore = `${score}|${getTime()}|${getDate()}`;
-  console.log(newScore);
+  scoreList.innerHTML = '';
+  setNewItem();
+  scoreStorage();
+}
+
+function setNewItem() {
+  if (score > 0) {    
+    const id = Date.now();
+    let newScore = `${score}|${getTime()}|${getDate()}`;
+    sessionStorage.setItem(`${id}`,`${newScore}`);
+  }
+}
+function scoreStorage() {
+  const scoreList = Object.values(sessionStorage);
+  
+  scoreList.forEach(value => {
+    const placeHolder = value.split('|');
+    createScoreElements(placeHolder[0], placeHolder[1], placeHolder[2]);
+  })
 }
 
 function createScoreElements(hitValue, timeValue, dateValue) {
-  if (score > 0) {
     const hits = document.createElement('p');
     const time = document.createElement('p');
     const date = document.createElement('p');
@@ -28,7 +49,6 @@ function createScoreElements(hitValue, timeValue, dateValue) {
     box.appendChild(date);
 
     scoreList.prepend(box);
-  }
 }
 function getDate() {
   const option = {

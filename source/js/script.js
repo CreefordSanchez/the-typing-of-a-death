@@ -5,7 +5,6 @@ import { selector, selectorAll, style, listener } from "./data/utility.js";
 import { printScore } from "./score.js";
 
 const body = selector('body');
-const scoreList = selector('.score-list');
 
 //buttons
 const startBtn = selector('.start');
@@ -163,6 +162,7 @@ function reset() {
   gameMusic.pause();
   gameMusic.currentTime = 0;
   homeMusic.currentTime = 0;
+  scoreCount.innerText = 0;
   score = 0;
 }
 
