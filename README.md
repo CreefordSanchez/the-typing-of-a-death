@@ -6,7 +6,7 @@ Typing Of A Dead is an action-packed typing game where you eliminate waves of zo
 
 <img src='./source/media/img/git-homescreen.png'>
 
-When the game loads, press Enter to start the game.
+When the game loads, press Start to start the game.
 There will be a short delay before the game fully begins.
 
 <img src='./source/media/img/git-gamescreen.png'>
