@@ -29,37 +29,6 @@ To view the leaderboard, go to the Menu and click the Leaderboard button.
 
 ## Code Highlights
 
-```javascipt
-
-listener(userInput, 'input', () => {
-  let getInput = userInput.value;
-  let char = getInput.slice(-1);
-  compare(char);
-});
-
-setInterval(() => {
-  if (startGame) {
-    timeLimit--;
-    timeCount.innerText = timeLimit;
-    userInput.focus();
-  }
-
-  if (timeLimit === 0) {       
-    printScore();
-    switchScreen(false); 
-    reset();
-  }
-
-  //looping home music
-  countTime++; {
-    if (countTime === 140) {
-      homeMusic.currentTime = 0;
-      countTime = 0;
-    }
-  }
-}, 1000);
-```
-
 RandomPos() is responsible for positioning the new zombie in a random location on the screen. This is achieved by dynamically adjusting the CSS inset property.
 <br>
 compare() handles two key tasks: it removes words you’ve correctly typed and checks if all the required words have been entered correctly. Additionally, this function triggers music when a word is typed correctly or when all words are completed successfully.
@@ -107,4 +76,38 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+```
+<br><br>
+compare() is called by an event listener whenever the user inputs something.
+<br>
+setInterval() counts down the timer, and once it reaches 0, it resets the score, updates the leaderboard with the new score, and switches back to the menu.
+```javascipt
+
+listener(userInput, 'input', () => {
+  let getInput = userInput.value;
+  let char = getInput.slice(-1);
+  compare(char);
+});
+
+setInterval(() => {
+  if (startGame) {
+    timeLimit--;
+    timeCount.innerText = timeLimit;
+    userInput.focus();
+  }
+
+  if (timeLimit === 0) {       
+    printScore();
+    switchScreen(false); 
+    reset();
+  }
+
+  //looping home music
+  countTime++; {
+    if (countTime === 140) {
+      homeMusic.currentTime = 0;
+      countTime = 0;
+    }
+  }
+}, 1000);
 ```
