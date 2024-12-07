@@ -12,7 +12,7 @@ There will be a short delay before the game fully begins.
 <img src='./source/media/img/git-gamescreen.png'>
 
 <br>
-<h3>Game On:</h3
+<h3>Game On:</h3>
 The background music will start playing, and the first zombie will appear.
 
 
