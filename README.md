@@ -16,7 +16,6 @@ There will be a short delay before the game fully begins.
 <br>
 The background music will start playing, and the first zombie will appear.
 
-<br>
 
 <br>
 <h3>How to Kill Zombies:</h3>
