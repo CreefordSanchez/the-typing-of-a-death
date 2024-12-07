@@ -22,5 +22,38 @@ Type the displayed words accurately on your keyboard to kill the zombies.
 No need to click anywhere on the screen—just start typing to play.
 
 <br>
+
+## Code Highlights
+
+'''javascipt
+
+listener(userInput, 'input', () => {
+  let getInput = userInput.value;
+  let char = getInput.slice(-1);
+  compare(char);
+});
+
+setInterval(() => {
+  if (startGame) {
+    timeLimit--;
+    timeCount.innerText = timeLimit;
+    userInput.focus();
+  }
+
+  if (timeLimit === 0) {       
+    printScore();
+    switchScreen(false); 
+    reset();
+  }
+
+  //looping home music
+  countTime++; {
+    if (countTime === 140) {
+      homeMusic.currentTime = 0;
+      countTime = 0;
+    }
+  }
+}, 1000);
+'''
 Once you're done playing, your score will be saved automatically.
 To view the leaderboard, go to the Menu and click the Leaderboard button.
