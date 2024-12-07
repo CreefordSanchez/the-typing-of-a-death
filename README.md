@@ -4,12 +4,9 @@ Typing Of A Dead is an action-packed typing game where you eliminate waves of zo
 
 ## Tutorial
 
-<img src='./source/media/img/git-homescreen.png'>
-
-When the game loads, press Start to start the game.
+When the game loads, press Start to start the game.<br>
 There will be a short delay before the game fully begins.
-
-<img src='./source/media/img/git-gamescreen.png'>
+<img src='./source/media/img/git-homescreen.png'>
 
 <br>
 <h3>Game On:</h3>
@@ -25,6 +22,9 @@ No need to click anywhere on the screen—just start typing to play.
 
 Once you're done playing, your score will be saved automatically.
 To view the leaderboard, go to the Menu and click the Leaderboard button.
+
+<img src='./source/media/img/git-gamescreen.png'>
+
 
 
 ## Code Highlights
