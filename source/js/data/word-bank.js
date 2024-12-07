@@ -1,6 +1,6 @@
 'use strict';
 
-export const wordBank = [
+const wordList = [
   'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
   'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money',
   'absolute', 'discipline', 'machine', 'accurate', 'connection', 'rainbow',
@@ -33,3 +33,18 @@ export const wordBank = [
   'bread', 'cake', 'caramel', 'juice', 'mouse', 'charger', 'pillow', 'candle',
   'film', 'jupiter'
 ];
+
+export const wordBank = shuffleArray(wordList);
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      const j = random(0, i);
+
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
