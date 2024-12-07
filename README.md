@@ -23,9 +23,13 @@ No need to click anywhere on the screen—just start typing to play.
 
 <br>
 
+Once you're done playing, your score will be saved automatically.
+To view the leaderboard, go to the Menu and click the Leaderboard button.
+
+
 ## Code Highlights
 
-'''javascipt
+```javascipt
 
 listener(userInput, 'input', () => {
   let getInput = userInput.value;
@@ -54,6 +58,4 @@ setInterval(() => {
     }
   }
 }, 1000);
-'''
-Once you're done playing, your score will be saved automatically.
-To view the leaderboard, go to the Menu and click the Leaderboard button.
+```
