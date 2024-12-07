@@ -12,14 +12,14 @@ There will be a short delay before the game fully begins.
 <img src='./source/media/img/git-gamescreen.png'>
 
 <br>
-Game On: 
+<h3>Game On:</h3>
 <br>
 The background music will start playing, and the first zombie will appear.
 
 <br>
 
 <br>
-How to Kill Zombies:
+<h3>How to Kill Zombies:</h3>
 
 <br>
 Type the displayed words accurately on your keyboard to kill the zombies.
