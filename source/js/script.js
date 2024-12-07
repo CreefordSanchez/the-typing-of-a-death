@@ -36,7 +36,7 @@ const deadSound = new Audio('./source/media/audio/death-sounds.wav');
 const homeMusic = new Audio('./source/media/audio/home-music.mp3');
 
 let startGame = false;
-let timeLimit = 15;
+let timeLimit = 100;
 let prevZombie = 0;
 export let score = 0;
 let countTime = 0;
@@ -142,9 +142,8 @@ function compare(char) {
 
 function newWord() {
   let getImg = random(0, zombieImg.length-1);
-  let getWord = random(0, wordBank.length-1);
-  currentWord.innerText = wordBank[getWord];
-  wordInput.innerText = wordBank[getWord];
+  currentWord.innerText = wordBank[score];
+  wordInput.innerText = wordBank[score];
   zombie.classList.remove(zombieImg[prevZombie]);
   zombie.classList.add(zombieImg[getImg]);
   prevZombie = getImg;
@@ -157,7 +156,7 @@ function random(min, max) {
 //Switching screen functions
 function reset() {
   startGame = false;
-  timeLimit = 15;
+  timeLimit = 100;
   timeCount.innerText = '---';
   gameMusic.pause();
   gameMusic.currentTime = 0;

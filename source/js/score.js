@@ -37,13 +37,22 @@ function validate() {
 }
 
 function scoreStorage() {
-  const scoreList = Object.values(localStorage);  
-  scoreList.sort((a, b) => b[0] - a[0]);
+  const scoreList = Object.values(localStorage); 
+  orderList(scoreList);
 
   scoreList.forEach(value => {
     const placeHolder = value.split('|');
     createScoreElements(placeHolder[0], placeHolder[1], placeHolder[2]);
   })
+}
+
+//example ['11|2232|1223', '2|654|34']
+function orderList(scoreList) {
+  scoreList.sort((a, b) => {
+    let A = a.split('|')[0];
+    let B = b.split('|')[0];
+    return B - A;
+  });
 }
 
 function createScoreElements(hitValue, timeValue, dateValue) {
