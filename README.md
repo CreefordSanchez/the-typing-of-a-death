@@ -15,7 +15,16 @@ There will be a short delay before the game fully begins.
 Game On: 
 <br>
 The background music will start playing, and the first zombie will appear.
+
+<br>
+
+<br>
 How to Kill Zombies:
 
+<br>
 Type the displayed words accurately on your keyboard to kill the zombies.
 No need to click anywhere on the screen—just start typing to play.
+
+<br>
+Once you're done playing, your score will be saved automatically.
+To view the leaderboard, go to the Menu and click the Leaderboard button.
