@@ -4,7 +4,7 @@ Typing Of A Dead is an action-packed typing game where you eliminate waves of zo
 
 ## Tutorial
 
-When the game loads, press Start to start the game.<br>
+When the game loads, press Start to start the game.
 There will be a short delay before the game fully begins.
 <img src='./source/media/img/git-homescreen.png'>
 
@@ -58,4 +58,53 @@ setInterval(() => {
     }
   }
 }, 1000);
+```
+
+RandomPos() is responsible for positioning the new zombie in a random location on the screen. This is achieved by dynamically adjusting the CSS inset property.
+<br>
+compare() handles two key tasks: it removes words you’ve correctly typed and checks if all the required words have been entered correctly. Additionally, this function triggers music when a word is typed correctly or when all words are completed successfully.
+<br>
+newWord() retrieves the next word from the word bank and displays it in the typing prompt for the player to type.
+```javascript
+//Zombie killing functions
+function randomPos() {
+  let screenHeight = window.innerHeight;
+  let screenWidth = window.innerWidth;
+  let y = random(0, screenHeight-500);
+  let x = random(0, screenWidth-500);
+  if (y <= 70) y = 80;
+  zombie.style.inset = `${y}px auto auto ${x}px`;
+}
+
+function compare(char) {
+  let targetText = wordInput.innerText;
+  if (targetText[0] === char.toLowerCase()) {
+    gunshots.currentTime = 0.1;
+    gunshots.play();
+    wordInput.innerText = targetText.slice(1);
+  }
+
+  if (wordInput.innerText === '') {
+    randomPos();
+    newWord();
+    deadSound.currentTime = 0;
+    deadSound.play();
+    score++;
+    scoreCount.innerText = score;
+  }
+}
+
+function newWord() {
+  let getImg = random(0, zombieImg.length-1);
+  currentWord.innerText = wordBank[score];
+  wordInput.innerText = wordBank[score];
+  zombie.classList.remove(zombieImg[prevZombie]);
+  zombie.classList.add(zombieImg[getImg]);
+  prevZombie = getImg;
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 ```
