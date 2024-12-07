@@ -5,7 +5,6 @@ import { score } from "./script.js";
 
 
 const scoreList = selector('.score-list');
-
 listener(window, 'load', () => {
   validate();
 });
@@ -17,19 +16,31 @@ export function printScore() {
 }
 
 function setNewItem() {
-  if (score > 0) {    
+  if (score > 0) {
+    const wrapper = [];
     const id = Date.now();
-    let newScore = `${score}|${getTime()}|${getDate()}`;
-    localStorage.setItem(`${id}`,`${newScore}`);
+    const newScore = {
+      hits: score, time: getTime(), date: getDate()
+    }
+    wrapper.push(newScore);
+    localStorage.setItem(`${id}`,JSON.stringify(wrapper));
   }
 }
 
-function validate() {
+function getScoreList() {
+  const getArr = Object.values(localStorage);
+  const newArr = getArr.map(value => {
+    return JSON.parse(value);
+  });
+  return newArr;
+}
+
+function validate() {  
   if (localStorage.length === 0) {
     scoreList.classList.add('center-score-msgg');
     scoreList.innerHTML = '<p>No Scores Yet</p>';
     return false;
-  } 
+  }
 
   scoreList.classList.remove('center-score-msgg');
   scoreStorage();    
@@ -37,20 +48,20 @@ function validate() {
 }
 
 function scoreStorage() {
-  const scoreList = Object.values(localStorage); 
-  orderList(scoreList);
+  const arrList = getScoreList();
+  orderList(arrList);
 
-  scoreList.forEach(value => {
-    const placeHolder = value.split('|');
-    createScoreElements(placeHolder[0], placeHolder[1], placeHolder[2]);
+  arrList.forEach(value => {
+    //the object inside of an array(which is value)....
+    const grabArr = value[0];
+    createScoreElements(grabArr.hits, grabArr.time, grabArr.date);
   })
 }
 
-//example ['11|2232|1223', '2|654|34']
 function orderList(scoreList) {
   scoreList.sort((a, b) => {
-    let A = a.split('|')[0];
-    let B = b.split('|')[0];
+    let A = a[0].hits;
+    let B = b[0].hits;
     return B - A;
   });
 }
@@ -71,6 +82,7 @@ function createScoreElements(hitValue, timeValue, dateValue) {
 
     scoreList.appendChild(box);
 }
+
 function getDate() {
   const option = {
     year: 'numeric',
@@ -82,12 +94,11 @@ function getDate() {
 }
 
 function getTime() {
-  const date = new Date();
-  let hour = date.getHours();
-  let min = String(date.getMinutes()).padStart(2, '0');
-  let amPm = hour >= 12 ? 'PM' : 'AM';
+  const options = {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  };
 
-  hour %= 12;
-  if (hour === 0) hour = 12;
-  return `${hour}:${min} ${amPm}`;
+  return new Date().toLocaleTimeString('en-US', options);
 }

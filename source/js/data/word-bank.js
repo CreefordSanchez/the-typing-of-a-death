@@ -41,6 +41,12 @@ function shuffleArray(array) {
       const j = random(0, i);
 
       [array[i], array[j]] = [array[j], array[i]];
+      /*
+        what is happening is a swapped between two values
+          let placeholder = array[i];
+          array[i] = array[j]
+          array[j] = placeholder;
+      */
   }
   return array;
 }
