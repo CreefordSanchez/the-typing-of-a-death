@@ -5,4 +5,17 @@ Typing Of A Dead is an action-packed typing game where you eliminate waves of zo
 ## Tutorial
 
 <img src='./source/media/img/git-homescreen.png'>
+
+When the game loads, press Enter to start the game.
+There will be a short delay before the game fully begins.
+
 <img src='./source/media/img/git-gamescreen.png'>
+
+<br>
+Game On: 
+<br>
+The background music will start playing, and the first zombie will appear.
+How to Kill Zombies:
+
+Type the displayed words accurately on your keyboard to kill the zombies.
+No need to click anywhere on the screen—just start typing to play.
