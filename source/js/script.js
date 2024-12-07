@@ -1,61 +1,10 @@
 'use strict';
 
-const wordBank = [
-  'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
-  'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money',
-  'absolute', 'discipline', 'machine', 'accurate', 'connection', 'rainbow',
-  'bicycle', 'eclipse', 'calculator', 'trouble', 'watermelon', 'developer',
-  'philosophy', 'database', 'periodic', 'capitalism', 'abominable', 'phone',
-  'component', 'future', 'pasta', 'microwave', 'jungle', 'wallet', 'canada',
-  'velvet', 'potion', 'treasure', 'beacon', 'labyrinth', 'whisper', 'breeze',
-  'coffee', 'beauty', 'agency', 'chocolate', 'eleven', 'technology',
-  'alphabet', 'knowledge', 'magician', 'professor', 'triangle', 'earthquake',
-  'baseball', 'beyond', 'evolution', 'banana', 'perfume', 'computer',
-  'butterfly', 'discovery', 'ambition', 'music', 'eagle', 'crown',
-  'chess', 'laptop', 'bedroom', 'delivery', 'enemy', 'button', 'door', 'bird',
-  'superman', 'library', 'unboxing', 'bookstore', 'language', 'homework',
-  'beach', 'economy', 'interview', 'awesome', 'challenge', 'science',
-  'mystery', 'famous', 'league', 'memory', 'leather', 'planet', 'software',
-  'update', 'yellow', 'keyboard', 'window', 'beans', 'truck', 'sheep',
-  'blossom', 'secret', 'wonder', 'enchantment', 'destiny', 'quest', 'sanctuary',
-  'download', 'blue', 'actor', 'desk', 'watch', 'giraffe', 'brazil',
-  'audio', 'school', 'detective', 'hero', 'progress', 'winter', 'passion',
-  'rebel', 'amber', 'jacket', 'article', 'paradox', 'social', 'resort',
-  'mask', 'escape', 'promise', 'band', 'level', 'hope', 'moonlight', 'media',
-  'orchestra', 'volcano', 'guitar', 'raindrop', 'inspiration', 'diamond',
-  'illusion', 'firefly', 'ocean', 'cascade', 'journey', 'laughter', 'horizon',
-  'exploration', 'serendipity', 'infinity', 'silhouette', 'wanderlust',
-  'marvel', 'nostalgia', 'serenity', 'reflection', 'twilight', 'harmony',
-  'symphony', 'solitude', 'essence', 'melancholy', 'melody', 'vision',
-  'silence', 'whimsical', 'eternity', 'cathedral', 'embrace', 'poet', 'ricochet',
-  'mountain', 'dance', 'sunrise', 'dragon', 'adventure', 'galaxy', 'echo',
-  'fantasy', 'radiant', 'serene', 'legend', 'starlight', 'light', 'pressure',
-  'bread', 'cake', 'caramel', 'juice', 'mouse', 'charger', 'pillow', 'candle',
-  'film', 'jupiter'
-];
-
-function selector(selector) {
-  return document.querySelector(selector);
-} 
-
-function selectorAll(selector) {
-  return document.querySelectorAll(selector);
-} 
-
-function listener(selector, event, callBack) {
-  return selector.addEventListener(event, callBack);
-}
-
-function display(selector, type) {
-  return selector.style.display = type;
-}
-
-function style(selector, styleType, type) {
-  return selector.style[styleType] = type
-}
+import { wordBank } from "./data/word-bank.js";
+import { selector, selectorAll, style, listener } from "./data/utility.js";
+import { printScore } from "./score.js";
 
 const body = selector('body');
-const scoreList = selector('.score-list');
 
 //buttons
 const startBtn = selector('.start');
@@ -87,9 +36,9 @@ const deadSound = new Audio('./source/media/audio/death-sounds.wav');
 const homeMusic = new Audio('./source/media/audio/home-music.mp3');
 
 let startGame = false;
-let timeLimit = 100;
+let timeLimit = 15;
 let prevZombie = 0;
-let score = 0;
+export let score = 0;
 let countTime = 0;
 
 gunshots.volume = 0.2;
@@ -103,7 +52,7 @@ listener(scoreBtn, 'click', () => {
 });
 
 listener(closeScoreBtn, 'click', () => {
-   homeContent.style.display = 'flex';
+  homeContent.style.display = 'flex';
   boardContent.style.display = 'none';
 });
 
@@ -148,10 +97,10 @@ setInterval(() => {
     userInput.focus();
   }
 
-  if (timeLimit === 0) {
-    switchScreen(false);
-    reset();
+  if (timeLimit === 0) {       
     printScore();
+    switchScreen(false); 
+    reset();
   }
 
   //looping home music
@@ -193,9 +142,8 @@ function compare(char) {
 
 function newWord() {
   let getImg = random(0, zombieImg.length-1);
-  let getWord = random(0, wordBank.length-1);
-  currentWord.innerText = wordBank[getWord];
-  wordInput.innerText = wordBank[getWord];
+  currentWord.innerText = wordBank[score];
+  wordInput.innerText = wordBank[score];
   zombie.classList.remove(zombieImg[prevZombie]);
   zombie.classList.add(zombieImg[getImg]);
   prevZombie = getImg;
@@ -205,55 +153,15 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//Printing screen functions 
-function printScore() {
-  if (score > 0) {
-    const hits = document.createElement('p');
-    const time = document.createElement('p');
-    const date = document.createElement('p');
-    const box = document.createElement('div');
-
-    hits.innerText = score;
-    time.innerText = getTime();
-    date.innerText = getDate();
-
-    box.appendChild(hits);
-    box.appendChild(time);
-    box.appendChild(date);
-
-    scoreList.prepend(box);
-  }
-}
-
-function getDate() {
-  const option = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }
-
-  return new Date().toLocaleDateString('en-ca', option);
-}
-
-function getTime() {
-  const date = new Date();
-  let hour = date.getHours();
-  let min = String(date.getMinutes()).padStart(2, '0');
-  let amPm = hour >= 12 ? 'PM' : 'AM';
-
-  hour %= 12;
-  if (hour === 0) hour = 12;
-  return `${hour}:${min} ${amPm}`;
-}
-
 //Switching screen functions
 function reset() {
   startGame = false;
-  timeLimit = 100;
+  timeLimit = 15;
   timeCount.innerText = '---';
   gameMusic.pause();
   gameMusic.currentTime = 0;
   homeMusic.currentTime = 0;
+  scoreCount.innerText = 0;
   score = 0;
 }
 
@@ -286,3 +194,37 @@ function removeScreen(screen) {
     style(screen, 'display', 'none');
   },2000);
 }
+
+const Bank = [
+  'dinosaur', 'love', 'pineapple', 'calendar', 'robot', 'building',
+  'population', 'weather', 'bottle', 'history', 'dream', 'character', 'money',
+  'absolute', 'discipline', 'machine', 'accurate', 'connection', 'rainbow',
+  'bicycle', 'eclipse', 'calculator', 'trouble', 'watermelon', 'developer',
+  'philosophy', 'database', 'periodic', 'capitalism', 'abominable', 'phone',
+  'component', 'future', 'pasta', 'microwave', 'jungle', 'wallet', 'canada',
+  'velvet', 'potion', 'treasure', 'beacon', 'labyrinth', 'whisper', 'breeze',
+  'coffee', 'beauty', 'agency', 'chocolate', 'eleven', 'technology',
+  'alphabet', 'knowledge', 'magician', 'professor', 'triangle', 'earthquake',
+  'baseball', 'beyond', 'evolution', 'banana', 'perfume', 'computer',
+  'butterfly', 'discovery', 'ambition', 'music', 'eagle', 'crown',
+  'chess', 'laptop', 'bedroom', 'delivery', 'enemy', 'button', 'door', 'bird',
+  'superman', 'library', 'unboxing', 'bookstore', 'language', 'homework',
+  'beach', 'economy', 'interview', 'awesome', 'challenge', 'science',
+  'mystery', 'famous', 'league', 'memory', 'leather', 'planet', 'software',
+  'update', 'yellow', 'keyboard', 'window', 'beans', 'truck', 'sheep',
+  'blossom', 'secret', 'wonder', 'enchantment', 'destiny', 'quest', 'sanctuary',
+  'download', 'blue', 'actor', 'desk', 'watch', 'giraffe', 'brazil',
+  'audio', 'school', 'detective', 'hero', 'progress', 'winter', 'passion',
+  'rebel', 'amber', 'jacket', 'article', 'paradox', 'social', 'resort',
+  'mask', 'escape', 'promise', 'band', 'level', 'hope', 'moonlight', 'media',
+  'orchestra', 'volcano', 'guitar', 'raindrop', 'inspiration', 'diamond',
+  'illusion', 'firefly', 'ocean', 'cascade', 'journey', 'laughter', 'horizon',
+  'exploration', 'serendipity', 'infinity', 'silhouette', 'wanderlust',
+  'marvel', 'nostalgia', 'serenity', 'reflection', 'twilight', 'harmony',
+  'symphony', 'solitude', 'essence', 'melancholy', 'melody', 'vision',
+  'silence', 'whimsical', 'eternity', 'cathedral', 'embrace', 'poet', 'ricochet',
+  'mountain', 'dance', 'sunrise', 'dragon', 'adventure', 'galaxy', 'echo',
+  'fantasy', 'radiant', 'serene', 'legend', 'starlight', 'light', 'pressure',
+  'bread', 'cake', 'caramel', 'juice', 'mouse', 'charger', 'pillow', 'candle',
+  'film', 'jupiter'
+];
